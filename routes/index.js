@@ -45,15 +45,20 @@ module.exports = function(passport){
 	});
 
 	/* GET Home Page */
-	router.get('/', isAuthenticated, function(req, res){
+	router.get('/', function(req, res) {
 		res.render('index', { user: req.user });
 	});
 
+    /* GET DeckBuilder Page */
+	router.get('/deckbuilder', function(req, res) {
+		res.render('deckbuilder', { user: req.user });
+	});
+
     /* Cards routes */
-    router.use('/cards', require('./cards'));
+    router.use('/api/cards', require('./api/cards'));
 
     /* Decks routes */
-    router.use('/decks', require('./decks'));
+    router.use('/api/decks', require('./api/decks'));
 
 	return router;
 }

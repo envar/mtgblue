@@ -1,10 +1,11 @@
 import json
 import pymongo
+import sys
 db = pymongo.MongoClient('localhost', 27017).mtg
 
-with open('AllCards.json') as f:
+with open('AllSets.json') as f:
     data = json.load(f)
 
-cards = [v for k, v in data.items()]
+for set in data:
+    db.cards.insert_many(data[set]['cards'])
 
-db.cards.insert_many(cards)

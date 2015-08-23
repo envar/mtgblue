@@ -40,7 +40,8 @@ var cardSchema = new Schema({
 }, schemaOptions);
 
 cardSchema.virtual('imageurl').get(function () {
-    return "http://api.mtgdb.info/content/card_images/"+this.multiverseid+".jpeg"
+    return "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=" + this.multiverseid + "&type=card ";
+    //return "http://api.mtgdb.info/content/card_images/" + this.multiverseid + ".jpeg";
 });
 
 var Card = mongoose.model('Card', cardSchema);
