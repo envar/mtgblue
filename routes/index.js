@@ -13,45 +13,16 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports = function(passport){
 
-	/* GET login */
-	router.get('/login', function(req, res) {
-        // Display the Login page with any flash message, if any
-        res.render('auth/login', { message: req.flash('message') });
-	});
-
 	/* POST Login */
-	router.post('/login', passport.authenticate('login', {
-		successRedirect: '/',
-		failureRedirect: '/login',
-		failureFlash : true
-	}));
-
-	/* GET Registration */
-	router.get('/signup', function(req, res){
-		res.render('auth/signup',{message: req.flash('message')});
-	});
+	router.post('/api/login', passport.authenticate('login'));
 
 	/* POST Registration */
-	router.post('/signup', passport.authenticate('signup', {
-		successRedirect: '/',
-		failureRedirect: '/signup',
-		failureFlash : true
-	}));
+	router.post('/api/signup', passport.authenticate('signup'));
 
 	/* GET Logout */
-	router.get('/logout', function(req, res) {
+	router.get('/api/logout', function(req, res) {
 		req.logout();
-		res.redirect('/login');
-	});
-
-	/* GET Home Page */
-	router.get('/', function(req, res) {
-		res.render('index', { user: req.user });
-	});
-
-    /* GET DeckBuilder Page */
-	router.get('/deckbuilder', function(req, res) {
-		res.render('deckbuilder', { user: req.user });
+		res.redirect('/');
 	});
 
     /* Cards routes */
@@ -59,6 +30,11 @@ module.exports = function(passport){
 
     /* Decks routes */
     router.use('/api/decks', require('./api/decks'));
+
+	/* GET Main Application */
+	router.get('*', function(req, res) {
+		res.render('index', { user: req.user });
+	});
 
 	return router;
 }

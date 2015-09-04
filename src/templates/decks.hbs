@@ -1,0 +1,14 @@
+<h2>Decks</h2>
+<div id='decks-search-box'>
+  <div class='input-group'>
+    <input type='text' class='form-control' placeholder='Search decks...'>
+    <span class='input-group-addon glyphicon glyphicon-search'> </span>
+  </div>
+</div>
+<div id='decks'>
+  <ul class='list-group'>
+    {{#each decks}}
+    <li class='list-group-item'>{{name}}</li>
+    {{/each}}
+  </ul>
+</div>

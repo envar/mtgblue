@@ -31,3 +31,10 @@ node_modules
 
 # Python
 **/venv
+
+# Public directory
+public
+
+# Vim
+**/*.swo
+**/*.swp

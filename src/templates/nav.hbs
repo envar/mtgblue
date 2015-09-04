@@ -16,14 +16,15 @@
         <li><a href="/deckbuilder">Deck Builder</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <% if (user) { %>
-          <li><a href="#"><%= user.email %></a></li>
+        {{#if user}}
+        <li><a href="#">{{user.email}}</a></li>
           <li><a href="/logout">logout</a></li>
-        <% } else { %>
+        {{else}}
           <li><a href="/login">login</a></li>
-        <% } %>
+        {{/if}}
       </ul>
     </div>
 
   </div>
 </nav>
+
