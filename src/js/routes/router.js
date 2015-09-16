@@ -4,15 +4,17 @@ var Router = Backbone.Router.extend({
         'deckbuilder': 'deckbuilder',
         '*notFound': 'notFound',
     },
+    initialize: function() {},
+    start: function() {
+        Backbone.history.start({pushState: true});
+    },
     index: function() {
-        console.log("going to index");
     },
     deckbuilder: function() {
-        console.log("going to deckbuilder");
-        var deckBuilderView = new DeckBuilderView({el: $('#app')});
+        App.deckBuilderView = new DeckBuilderView({el: $('#app')});
+        App.deckBuilderView.render();
     },
     notFound: function() {
-        console.log("notFound");
         var errorView = new ErrorView({el: $('#app')});
     },
 });

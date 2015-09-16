@@ -2,24 +2,41 @@ DeckBuilderView = Backbone.View.extend({
     collections: {},
     views: {},
     initialize: function(options) {
+        this.pubSub = _.extend({}, Backbone.Events);
         this.collections.cardsCollection = new CardsCollection();
         this.collections.decksCollection = new DecksCollection();
-        this.render();
+        this.collections.cardsCollection.fetch();
+        this.collections.decksCollection.fetch();
     },
-    template: App.templates.deckbuilder,
+    template: App.templates.deckBuilder,
     render: function() {
         this.$el.html(this.template());
 
-        this.views.cardsView = new CardsView({
+        this.views.cardsListView = new CardsListView({
             collection: this.collections.cardsCollection,
-            el: $('#cards-view'),
+            el: $('#cardsView'),
+            pubSub: this.pubSub,
         });
+        this.views.cardsListView.render();
 
-        this.views.decksView = new DecksView({
+        this.views.decksListView = new DecksListView({
             collection: this.collections.decksCollection,
-            el: $('#decks-view'),
+            el: $('#decksView'),
+            pubSub: this.pubSub,
+        });
+        this.views.decksListView.render();
+
+        this.views.cardPreviewView = new CardPreviewView({
+            model: new Card(),
+            el: $('#cardPreview'),
+            pubSub: this.pubSub,
         });
 
-    }
+        this.views.deckView = new DeckView({
+            model: new Deck({name: 'No deck selected'}),
+            el: $('#deckView'),
+            pubSub: this.pubSub,
+        });
+    },
 });
 
